@@ -1,4 +1,4 @@
-name: Travel Autopilot Pipeline
+name: PulseTrips-Project-1
 
 on:
   workflow_dispatch:
