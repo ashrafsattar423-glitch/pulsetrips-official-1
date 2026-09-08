@@ -5,26 +5,52 @@ import random
 import requests
 import google.generativeai as genai
 
-# Configuration (Supports both variable names)
+# Configuration
 PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 MAKE_WEBHOOK_URL = os.getenv("MAKE_WEBHOOK_URL") or os.getenv("WEBHOOK_URL")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Affiliate Links
-AFFILIATE_LINKS = {
-    "flights": "https://kiwi.tpk.ro/NsxwLSqE",
-    "esim": "https://airalo.tpk.ro/WZs9mIjC",
-    "tours": "https://klook.tpk.ro/TmmM5wxy",
-    "transfers": "https://gettransfer.tpk.ro/sdoNOlXV",
-    "airhelp": "https://airhelp.tpk.ro/GJreOSXw"
+# Affiliate Links & Widgets Mapping
+AFFILIATE_DATA = {
+    "flights": {
+        "badge": "✈️ Flight Deals",
+        "btn_text": "Book Cheap Flights Now",
+        "link": "https://kiwi.tpk.ro/NsxwLSqE",
+        "widget_html": """<script async src="https://tpscr.com/content?currency=usd&trs=570438&shmarker=773883&searchUrl=www.aviasales.com%2Fsearch&locale=en&powered_by=true&origin=LON&destination=BKK&period=year&promo_id=4041&campaign_id=100" charset="utf-8"></script>"""
+    },
+    "esim": {
+        "badge": "📶 International Data eSIM",
+        "btn_text": "Get Instant eSIM Plan",
+        "link": "https://airalo.tpk.ro/WZs9mIjC",
+        "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">⚡ Stay Connected Worldwide with Airalo eSIM</p><p class="text-xs text-slate-400">Instant digital activation • No physical SIM needed • High-speed 4G/5G data</p></div>"""
+    },
+    "tours": {
+        "badge": "🎟️ Tours & Experiences",
+        "btn_text": "Book Activities & Tickets",
+        "link": "https://klook.tpk.ro/TmmM5wxy",
+        "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🌟 Discover Top Attractions & Day Trips with Klook</p><p class="text-xs text-slate-400">Skip-the-line tickets • Instant confirmation • Verified reviews</p></div>"""
+    },
+    "transfers": {
+        "badge": "🚕 Airport Rides & Taxis",
+        "btn_text": "Book Private Airport Taxi",
+        "link": "https://gettransfer.tpk.ro/sdoNOlXV",
+        "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🚘 Premium Airport Transfers with GetTransfer</p><p class="text-xs text-slate-400">Driver meets you at arrival • Fixed pricing • Clean & comfortable vehicles</p></div>"""
+    },
+    "airhelp": {
+        "badge": "⚖️ Flight Compensation",
+        "btn_text": "Claim Compensation (Up to $650)",
+        "link": "https://airhelp.tpk.ro/GJreOSXw",
+        "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🛡️ Delayed or Canceled Flight?</p><p class="text-xs text-slate-400">Check if you are eligible for up to $650 compensation with AirHelp.</p></div>"""
+    }
 }
 
 DESTINATIONS = [
     "Tokyo, Japan", "Paris, France", "Rome, Italy", "Bali, Indonesia",
     "New York, USA", "London, UK", "Barcelona, Spain", "Dubai, UAE",
-    "Istanbul, Turkey", "Bangkok, Thailand", "Amsterdam, Netherlands"
+    "Istanbul, Turkey", "Bangkok, Thailand", "Amsterdam, Netherlands",
+    "Santorini, Greece", "Kyoto, Japan", "Prague, Czech Republic"
 ]
 
 def clean_text(text):
@@ -41,10 +67,9 @@ def get_pexels_image(query):
         print(f"Pexels error: {e}")
     return "https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg"
 
-def generate_content(destination):
-    # Updated model string format to ensure compatibility
+def generate_content(destination, topic):
     model = genai.GenerativeModel("models/gemini-1.5-flash")
-    prompt = f"Create a short travel guide for {destination}. Return ONLY JSON with keys: 'title', 'description', 'slug'."
+    prompt = f"Create a short, high-converting travel description focusing on {topic} for {destination}. Return ONLY JSON with keys: 'title', 'description', 'slug'."
     
     try:
         res = model.generate_content(prompt)
@@ -56,54 +81,96 @@ def generate_content(destination):
     except Exception as e:
         print(f"Gemini API Error: {e}")
     
-    slug = destination.lower().replace(",", "").replace(" ", "-")
-    return f"Explore {destination}", f"Discover the best of {destination}.", slug
+    slug = f"{destination.lower().replace(',', '').replace(' ', '-')}-{topic}"
+    return f"Explore {destination} - Best {topic.capitalize()} Deals", f"Discover exclusive deals and book your {topic} for {destination} today.", slug
 
-def build_html_page(title, description, image_url, destination, slug):
+def build_html_page(title, description, image_url, destination, slug, topic):
     os.makedirs("destinations", exist_ok=True)
     file_path = f"destinations/{slug}.html"
+    
+    topic_data = AFFILIATE_DATA.get(topic, AFFILIATE_DATA["flights"])
     
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <style>
-        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: #333; }}
-        .card {{ max-width: 650px; margin: 20px auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }}
-        .card img {{ width: 100%; height: 350px; object-fit: cover; }}
-        .content {{ padding: 25px; text-align: center; }}
-        h1 {{ font-size: 26px; margin-bottom: 15px; color: #1a1a1a; }}
-        p {{ font-size: 16px; line-height: 1.6; color: #555; margin-bottom: 25px; text-align: left; }}
-        
-        .btn-container {{ display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }}
-        .btn {{ display: block; padding: 14px 20px; border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 16px; transition: transform 0.2s, opacity 0.2s; color: white; }}
-        .btn:hover {{ transform: translateY(-2px); opacity: 0.95; }}
-        
-        .btn-flights {{ background-color: #00a699; }}
-        .btn-esim {{ background-color: #ff5a5f; }}
-        .btn-tours {{ background-color: #ffb400; color: #1a1a1a; }}
-        .btn-transfers {{ background-color: #484848; }}
-        .btn-airhelp {{ background-color: #007bc7; }}
-    </style>
+    <title>{title} - PulseTrips</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="card">
-        <img src="{image_url}" alt="{title}">
-        <div class="content">
-            <h1>{title}</h1>
-            <p>{description}</p>            
-            
-            <div class="btn-container">
-                <a href="{AFFILIATE_LINKS['flights']}" target="_blank" class="btn btn-flights">✈️ Search Flights on Kiwi</a>
-                <a href="{AFFILIATE_LINKS['esim']}" target="_blank" class="btn btn-esim">📶 Get Travel eSIM (Airalo)</a>
-                <a href="{AFFILIATE_LINKS['tours']}" target="_blank" class="btn btn-tours">🎟️ Book Tours & Activities (Klook)</a>
-                <a href="{AFFILIATE_LINKS['transfers']}" target="_blank" class="btn btn-transfers">🚕 Airport Transfers & Cars (GetTransfer)</a>
-                <a href="{AFFILIATE_LINKS['airhelp']}" target="_blank" class="btn btn-airhelp">⚖️ Delayed Flight Compensation (AirHelp)</a>
-            </div>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <a href="/" class="text-xl font-black text-blue-500 tracking-wide flex items-center gap-2">
+                <i class="fa-solid fa-plane-departure text-blue-400"></i> PulseTrips
+            </a>
+            <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Verified Deal
+            </span>
         </div>
-    </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="flex-grow flex items-center justify-center px-4 py-10">
+        <div class="max-w-3xl w-full bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl relative">
+            
+            <!-- Hero Image Banner -->
+            <div class="relative h-64 md:h-80 w-full overflow-hidden">
+                <img src="{image_url}" alt="{title}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+                
+                <div class="absolute top-4 left-4">
+                    <span class="bg-blue-600/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md">
+                        {topic_data['badge']}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 md:p-8">
+                <h1 class="text-2xl md:text-4xl font-extrabold text-white mb-3 leading-tight">{title}</h1>
+                <p class="text-slate-300 text-sm md:text-base mb-6 leading-relaxed">{description}</p>
+
+                <!-- Live Topic Widget Box -->
+                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 md:p-6 mb-6 shadow-inner">
+                    {topic_data['widget_html']}
+                </div>
+
+                <!-- Call to Action Button -->
+                <a href="{topic_data['link']}" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-center gap-3 w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 shadow-xl shadow-blue-600/20 text-lg text-center">
+                    <span>{topic_data['btn_text']}</span>
+                    <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                </a>
+
+                <!-- Conversion Features / Trust Indicators -->
+                <div class="mt-6 pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-2 text-center">
+                    <div>
+                        <i class="fa-solid fa-shield-halved text-blue-400 text-sm mb-1"></i>
+                        <p class="text-[11px] text-slate-400 font-medium">100% Secure</p>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-bolt text-amber-400 text-sm mb-1"></i>
+                        <p class="text-[11px] text-slate-400 font-medium">Instant Booking</p>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-tag text-emerald-400 text-sm mb-1"></i>
+                        <p class="text-[11px] text-slate-400 font-medium">Best Price Guarantee</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900 py-4 text-center text-slate-500 text-xs">
+        &copy; 2026 PulseTrips. Direct booking options provided by verified partners.
+    </footer>
+
 </body>
 </html>
 """
@@ -126,12 +193,15 @@ def send_to_make(title, description, image_url, page_url):
 
 def main():
     destination = random.choice(DESTINATIONS)
-    title, description, slug = generate_content(destination)
+    # Pick a random topic for this specific pin/landing page
+    topic = random.choice(list(AFFILIATE_DATA.keys()))
+    
+    title, description, slug = generate_content(destination, topic)
     image_url = get_pexels_image(destination)
     
-    page_url = build_html_page(title, description, image_url, destination, slug)
+    page_url = build_html_page(title, description, image_url, destination, slug, topic)
     send_to_make(title, description, image_url, page_url)
-    print(f"Successfully processed for {destination}: {page_url}")
+    print(f"Successfully created {topic} page for {destination}: {page_url}")
 
 if __name__ == "__main__":
     main()
