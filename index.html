@@ -14,7 +14,7 @@
     <!-- Global Referrer Policy -->
     <meta name="referrer" content="no-referrer-when-downgrade">
 
-    <!-- Travelpayouts Script -->
+    <!-- Travelpayouts Main Script -->
     <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
       (function () {
           var script = document.createElement("script");
@@ -54,8 +54,7 @@
         </span>
     </div>
 
-    
-   <!-- Header Navigation -->
+    <!-- Header Navigation -->
     <header class="bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -67,19 +66,20 @@
                     <span class="text-2xl font-black tracking-tight text-white">Pulse<span class="text-indigo-400">Trips</span></span>
                 </a>
 
-                <!-- Updated Clear & Bold Navigation Links -->
+                <!-- Clear Navigation Links -->
                 <nav class="hidden lg:flex items-center space-x-2 text-base font-bold text-white">
                     <a href="#flights" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-indigo-300 hover:bg-slate-800/90 transition">Flights</a>
+                    <a href="#hotels" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-emerald-300 hover:bg-slate-800/90 transition">Hotels</a>
                     <a href="#esim" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-blue-300 hover:bg-slate-800/90 transition">Travel eSIM</a>
                     <a href="#transfers" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-purple-300 hover:bg-slate-800/90 transition">Transfers & Cars</a>
                     <a href="#activities" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-yellow-300 hover:bg-slate-800/90 transition">Tours & Tickets</a>
-                    <a href="#protection" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-red-300 hover:bg-slate-800/90 transition">Compensation Claims</a>
+                    <a href="#protection" class="px-3.5 py-2 rounded-xl text-slate-100 hover:text-red-300 hover:bg-slate-800/90 transition">Compensation</a>
                 </nav>
 
                 <div>
-                    <a href="https://kiwi.tpk.ro/NsxwLSqE?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/30 transition duration-300 flex items-center space-x-2 transform hover:-translate-y-0.5">
+                    <a href="#flights" class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/30 transition duration-300 flex items-center space-x-2 transform hover:-translate-y-0.5">
                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                        <span>Search Cheap Flights</span>
+                        <span>Search Deals</span>
                     </a>
                 </div>
             </div>
@@ -88,7 +88,7 @@
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="hero-bg py-24 lg:py-32 px-4 relative">
+        <section class="hero-bg py-20 lg:py-28 px-4 relative">
             <div class="max-w-5xl mx-auto text-center">
                 <span class="inline-flex items-center space-x-2 bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-md">
                     <i class="fa-solid fa-shield-halved text-emerald-400"></i>
@@ -103,28 +103,37 @@
                     Find cheap airfares, get instant global eSIM data plans, book airport transfers, and skip long queues for tour tickets worldwide.
                 </p>
 
+                <!-- Embedded Main Search Form Widget -->
+                <div class="glass-card p-4 sm:p-6 rounded-3xl max-w-4xl mx-auto shadow-2xl mb-8">
+                    <p class="text-slate-300 text-xs font-bold uppercase tracking-widest mb-4 text-left"><i class="fa-solid fa-magnifying-glass mr-2 text-indigo-400"></i>Search Flights & Hotels</p>
+                    <div class="bg-white/10 rounded-2xl p-2 overflow-hidden">
+                        <script async src="https://tpscr.com/content?currency=usd&trs=570438&shmarker=773883&show_hotels=true&powered_by=true&locale=en&searchUrl=www.aviasales.com%2Fsearch&primary_override=%2332a8dd&color_button=%23e8b917&color_icons=%2332a8dd&dark=%23262626&light=%23FFFFFF&secondary=%23FFFFFF&special=%23C4C4C4&color_focused=%2332a8dd&border_radius=5&plain=false&promo_id=7879&campaign_id=100" charset="utf-8"></script>
+                    </div>
+                </div>
+
+                <!-- Quick Category Links -->
                 <div class="glass-card p-4 sm:p-6 rounded-3xl max-w-4xl mx-auto shadow-2xl">
-                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Choose Your Service</p>
+                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Quick Links</p>
                     <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                        <a href="https://kiwi.tpk.ro/NsxwLSqE?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                        <a href="#flights" class="bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-plane text-indigo-400"></i>
                             <span>Flights</span>
                         </a>
-                        <a href="https://airalo.tpk.ro/WZs9mIjC?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                        <a href="#hotels" class="bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-hotel text-emerald-400"></i>
+                            <span>Hotels</span>
+                        </a>
+                        <a href="#esim" class="bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-sim-card text-blue-400"></i>
                             <span>eSIM Data</span>
                         </a>
-                        <a href="https://klook.tpk.ro/TmmM5wxy?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-yellow-600/30 hover:bg-yellow-600/50 border border-yellow-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-ticket text-yellow-400"></i>
-                            <span>Tours</span>
-                        </a>
-                        <a href="https://gettransfer.tpk.ro/sdoNOlXV?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
+                        <a href="#transfers" class="bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-car text-purple-400"></i>
                             <span>Transfers</span>
                         </a>
-                        <a href="https://airhelp.tpk.ro/GJreOSXw?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="bg-red-600/30 hover:bg-red-600/50 border border-red-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2 col-span-2 sm:col-span-1">
-                            <i class="fa-solid fa-shield-cat text-red-400"></i>
-                            <span>AirHelp</span>
+                        <a href="#activities" class="bg-yellow-600/30 hover:bg-yellow-600/50 border border-yellow-500/30 text-white p-3.5 rounded-2xl font-semibold text-xs sm:text-sm transition flex items-center justify-center space-x-2 col-span-2 sm:col-span-1">
+                            <i class="fa-solid fa-ticket text-yellow-400"></i>
+                            <span>Tours</span>
                         </a>
                     </div>
                 </div>
@@ -136,102 +145,151 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
                     <span class="text-indigo-400 font-bold uppercase text-xs tracking-widest">Air Travel</span>
-                    <h2 class="text-3xl font-extrabold text-white mt-1">Flight Search & Price Comparison</h2>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Flight Search & Price Calendar</h2>
                 </div>
-                <p class="text-slate-400 text-sm mt-2 md:mt-0">Compare 1,000+ airlines to find cheap flight deals.</p>
+                <p class="text-slate-400 text-sm mt-2 md:mt-0">Compare 1,000+ airlines to find low-fare flight deals.</p>
             </div>
 
-            <div class="grid grid-cols-1 max-w-3xl mx-auto">
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-indigo-500/50 transition duration-300 flex flex-col justify-between group">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-indigo-500/50 transition duration-300">
+                <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-xl mb-6">
+                    <i class="fa-solid fa-plane-departure"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Cheap Flight Calendar</h3>
+                <p class="text-slate-400 text-sm mb-6">Find the cheapest flight dates across major travel routes worldwide without extra booking fees.</p>
+                
+                <!-- Embedded Low Fare Calendar Widget -->
+                <div class="bg-slate-950 p-4 rounded-2xl overflow-x-auto border border-slate-800">
+                    <script async src="https://tpscr.com/content?currency=usd&trs=570438&shmarker=773883&searchUrl=www.aviasales.com%2Fsearch&locale=en&powered_by=true&origin=LON&destination=BKK&one_way=false&only_direct=false&period=year&range=7%2C14&primary=%230C73FE&color_background=%23FFFFFF&dark=%000000&light=%23FFFFFF&achieve=%2345AD35&promo_id=4041&campaign_id=100" charset="utf-8"></script>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hotels Section (Topic-wise Addition) -->
+        <section id="hotels" class="bg-slate-900/60 border-y border-slate-800/80 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                     <div>
-                        <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-plane-departure"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">Kiwi.com Flight Search</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Find low-cost flights, compare ticket prices across hundreds of airlines and travel agencies globally without extra booking fees.</p>
+                        <span class="text-emerald-400 font-bold uppercase text-xs tracking-widest">Accommodations</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-1">Hotels & Resort Deals</h2>
                     </div>
-                    <a href="https://kiwi.tpk.ro/NsxwLSqE?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white font-bold py-3.5 px-6 rounded-2xl text-center text-sm shadow-lg shadow-indigo-500/20 transition flex items-center justify-center space-x-2">
-                        <span>Find Flights on Kiwi.com</span>
-                        <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
-                    </a>
+                    <p class="text-slate-400 text-sm mt-2 md:mt-0">Find best price guarantees on luxury hotels and budget stays.</p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 hover:border-emerald-500/50 transition">
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Hotel Search & Hotel Deals</h3>
+                    <p class="text-slate-400 text-sm mb-6">Compare hotel prices across top booking platforms instantly.</p>
+
+                    <!-- Embedded Hotel Search Form Widget -->
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 overflow-x-auto">
+                        <script async src="https://tpscr.com/content?currency=USD&trs=570438&shmarker=773883&locale=en&from=&to=&country=&powered_by=true&height=&wtype=true&transfers_limit=10&bg_color=%23f5f5f5&button_color=%23239a54&button_font_color=%23ffffff&button_hover_color=%230274da&border_color=%23f9ac1a&input_font_color=%23c8ced4&input_bg_color=%23ffffff&input_label_color=%23c8ced4&icon_bg_color=%23ffffff&icon_arrow_color=%236c7c8c&icon_bg_color_mobile=%23f9ac1a&icon_arrow_color_mobile=%23ffffff&autocomplete_font_color=%23373f47&autocomplete_bg_color=%23ffffff&autocomplete_font_color_active=%23ffffff&autocomplete_bg_color_active=%23239a54&loader_color=%23f9ac1a&empty_color=%23373f47&info_bg_color=%23fff0cc&info_icon_color=%234a4a4a&info_caption_color=%234a4a4a&class_background=%23ffffff&class_font_color=%23373f47&class_header_color=%236c7c8c&class_button_background=%2326a65b&class_button_font_color=%23ffffff&class_button_background_hover=%230274da&class_comment_background=%23bfc0c4&class_comment_font=%23bfc0c4&more_background=&more_background_hover=&more_font_color=%230267c1&notification_background=%23f6f1ec&notification_border_color=%23e37f17&notification_color=%23373f47&campaign_id=1&promo_id=2949" charset="utf-8"></script>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- eSIM Section -->
-        <section id="esim" class="bg-slate-900/60 border-y border-slate-800/80 py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-16">
-                    <span class="text-blue-400 font-bold uppercase text-xs tracking-widest">Connectivity</span>
-                    <h2 class="text-3xl font-extrabold text-white mt-1">International Travel eSIMs</h2>
-                    <p class="text-slate-400 text-sm mt-3">Stay connected everywhere without paying exorbitant roaming fees.</p>
-                </div>
+        <section id="esim" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-blue-400 font-bold uppercase text-xs tracking-widest">Connectivity</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">International Travel eSIMs</h2>
+                <p class="text-slate-400 text-sm mt-3">Stay connected everywhere without paying exorbitant roaming fees.</p>
+            </div>
 
-                <div class="grid grid-cols-1 max-w-xl mx-auto">
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center hover:border-blue-500/50 transition">
-                        <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl">
-                            <i class="fa-solid fa-globe"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2">Airalo eSIM</h4>
-                        <p class="text-slate-400 text-sm mb-6">World's leading eSIM store for 200+ countries and regions.</p>
-                        <a href="https://airalo.tpk.ro/WZs9mIjC?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-2xl text-sm block transition">Get Airalo eSIM Data Plan</a>
+            <div class="grid grid-cols-1 max-w-xl mx-auto">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center hover:border-blue-500/50 transition">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl">
+                        <i class="fa-solid fa-globe"></i>
                     </div>
+                    <h4 class="text-2xl font-bold text-white mb-2">Airalo eSIM Plans</h4>
+                    <p class="text-slate-400 text-sm mb-6">World's leading eSIM store for 200+ countries and regions. Buy and activate instantly on your phone.</p>
+                    <a href="https://airalo.tpk.ro/WZs9mIjC?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-2xl text-sm block transition shadow-lg shadow-blue-600/20">Get Airalo eSIM Data Plan</a>
                 </div>
             </div>
         </section>
 
         <!-- Airport Transfers Section -->
-        <section id="transfers" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                <div>
-                    <span class="text-purple-400 font-bold uppercase text-xs tracking-widest">Door-to-Door</span>
-                    <h2 class="text-3xl font-extrabold text-white mt-1">Airport Transfers & Car Rides</h2>
-                </div>
-                <p class="text-slate-400 text-sm mt-2 md:mt-0">Pre-book stress-free rides and transfers.</p>
-            </div>
-
-            <div class="grid grid-cols-1 max-w-3xl mx-auto">
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-purple-500/50 transition flex flex-col justify-between">
+        <section id="transfers" class="bg-slate-900/60 border-y border-slate-800/80 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                     <div>
-                        <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
-                            <i class="fa-solid fa-car-rear"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">GetTransfer Rides & Transfers</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Book private driver services, intercity rides, airport pickups, and luxury car transfers worldwide.</p>
+                        <span class="text-purple-400 font-bold uppercase text-xs tracking-widest">Door-to-Door</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-1">Airport Transfers & Car Rides</h2>
                     </div>
-                    <a href="https://gettransfer.tpk.ro/sdoNOlXV?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition">Book GetTransfer Ride</a>
+                    <p class="text-slate-400 text-sm mt-2 md:mt-0">Pre-book stress-free rides and transfers.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- KiwiTaxi Widget -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-purple-500/50 transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
+                                <i class="fa-solid fa-taxi"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">KiwiTaxi Airport Transfer</h3>
+                            <p class="text-slate-400 text-sm mb-6">Book fast, reliable airport pickups with private drivers.</p>
+                        </div>
+                        <div class="bg-slate-950 p-2 rounded-2xl border border-slate-800">
+                            <script async src="https://tpscr.com/content?trs=570438&shmarker=773883&locale=en&color_scheme=basic&view=compact&h=Transfer%20bookings&powered_by=true&promo_id=1586&campaign_id=22" charset="utf-8"></script>
+                        </div>
+                    </div>
+
+                    <!-- GetTransfer Direct Box -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-purple-500/50 transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
+                                <i class="fa-solid fa-car-rear"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">GetTransfer Intercity Rides</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">Book private driver services, intercity rides, airport pickups, and luxury car transfers worldwide.</p>
+                        </div>
+                        <a href="https://gettransfer.tpk.ro/sdoNOlXV?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition shadow-lg shadow-purple-600/20">Book GetTransfer Ride</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Activities Section -->
-        <section id="activities" class="bg-slate-900/60 border-y border-slate-800/80 py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                    <div>
-                        <span class="text-yellow-400 font-bold uppercase text-xs tracking-widest">Experiences</span>
-                        <h2 class="text-3xl font-extrabold text-white mt-1">Attraction Tickets & Tours</h2>
+        <section id="activities" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-yellow-400 font-bold uppercase text-xs tracking-widest">Experiences</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Attraction Tickets & Tours</h2>
+                </div>
+                <p class="text-slate-400 text-sm mt-2 md:mt-0">Book museum passes, day trips, and guided tours.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- GetYourGuide Embedded Widget -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/50 transition">
+                    <div class="w-12 h-12 bg-yellow-500/10 text-yellow-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
+                        <i class="fa-solid fa-compass"></i>
                     </div>
-                    <p class="text-slate-400 text-sm mt-2 md:mt-0">Book museum passes, day trips, and guided tours.</p>
+                    <h3 class="text-xl font-bold text-white mb-2">GetYourGuide Destinations</h3>
+                    <p class="text-slate-400 text-sm mb-6">Explore popular travel activities and tour cards globally.</p>
+                    <div class="bg-slate-950 p-2 rounded-2xl border border-slate-800 overflow-hidden">
+                        <script async src="https://tpscr.com/content?currency=USD&trs=570438&shmarker=773883&language=en&locale=260932&layout=horizontal&cards=4&powered_by=true&campaign_id=89&promo_id=3947" charset="utf-8"></script>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 max-w-3xl mx-auto">
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-yellow-500/50 transition flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-yellow-500/10 text-yellow-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
-                                <i class="fa-solid fa-compass"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3">Klook Tours & Travel Activities</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-6">Discover theme parks, skip-the-line attraction tickets, day trips, and authentic travel experiences anywhere.</p>
+                <!-- Klook Direct Box -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/50 transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-500/10 text-yellow-400 rounded-2xl flex items-center justify-center mb-6 text-xl">
+                            <i class="fa-solid fa-ticket"></i>
                         </div>
-                        <a href="https://klook.tpk.ro/TmmM5wxy?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition">Explore Klook Activities</a>
+                        <h3 class="text-xl font-bold text-white mb-3">Klook Tours & Travel Activities</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Discover theme parks, skip-the-line attraction tickets, day trips, and authentic travel experiences anywhere.</p>
                     </div>
+                    <a href="https://klook.tpk.ro/TmmM5wxy?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition shadow-lg shadow-yellow-500/20">Explore Klook Activities</a>
                 </div>
             </div>
         </section>
 
         <!-- Claims & Insurance Section -->
-        <section id="protection" class="py-20">
+        <section id="protection" class="bg-slate-900/60 border-t border-slate-800/80 py-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-12">
                     <span class="text-red-400 font-bold uppercase text-xs tracking-widest">Peace of Mind</span>
@@ -247,7 +305,7 @@
                             <h3 class="text-2xl font-bold text-white mb-3">AirHelp Compensation</h3>
                             <p class="text-slate-400 text-sm leading-relaxed mb-6">Flight delayed or cancelled? Claim up to $700 in flight disruption compensation instantly with zero risk.</p>
                         </div>
-                        <a href="https://airhelp.tpk.ro/GJreOSXw?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition">Claim Flight Compensation</a>
+                        <a href="https://airhelp.tpk.ro/GJreOSXw?subid=pulsetrips" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer-when-downgrade" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 px-6 rounded-2xl text-center text-sm block transition shadow-lg shadow-red-600/20">Claim Flight Compensation</a>
                     </div>
                 </div>
             </div>
@@ -264,7 +322,7 @@
                 <span>PulseTrips</span>
             </div>
             <p class="text-sm text-slate-500 max-w-md mx-auto">
-                PulseTrips connects global travelers with verified flights, travel eSIMs, transfers, and tour attractions worldwide.
+                PulseTrips connects global travelers with verified flights, hotels, travel eSIMs, transfers, and tour attractions worldwide.
             </p>
             <div class="text-xs text-slate-600 border-t border-slate-800/80 pt-6">
                 &copy; 2026 PulseTrips. All rights reserved.
