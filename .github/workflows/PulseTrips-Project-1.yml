@@ -28,6 +28,14 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          - name: Random Time Shift (2 to 12 mins)
+        run: |
+          DELAY=$(( (RANDOM % 11 + 2) * 60 ))
+          echo "Delaying execution by $DELAY seconds..."
+          sleep $DELAY
+
+      - name: Run Autopilot
+      
         run: python autopilot.py
 
       - name: Commit and Push New Pages
