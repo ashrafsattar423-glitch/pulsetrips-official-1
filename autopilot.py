@@ -12,45 +12,57 @@ MAKE_WEBHOOK_URL = os.getenv("MAKE_WEBHOOK_URL") or os.getenv("WEBHOOK_URL")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Affiliate Links & Widgets Mapping
+# Affiliate Links & Widgets Mapping with explicit keywords for Make.com Filters
 AFFILIATE_DATA = {
     "flights": {
         "badge": "✈️ Flight Deals",
         "btn_text": "Book Cheap Flights Now",
         "link": "https://kiwi.tpk.ro/NsxwLSqE",
+        "keyword": "flight flights airline airfare cheap tickets plane",
         "widget_html": """<script async src="https://tpscr.com/content?currency=usd&trs=570438&shmarker=773883&searchUrl=www.aviasales.com%2Fsearch&locale=en&powered_by=true&origin=LON&destination=BKK&period=year&promo_id=4041&campaign_id=100" charset="utf-8"></script>"""
     },
     "esim": {
         "badge": "📶 International Data eSIM",
         "btn_text": "Get Instant eSIM Plan",
         "link": "https://airalo.tpk.ro/WZs9mIjC",
+        "keyword": "esim internet sim card mobile data roaming",
         "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">⚡ Stay Connected Worldwide with Airalo eSIM</p><p class="text-xs text-slate-400">Instant digital activation • No physical SIM needed • High-speed 4G/5G data</p></div>"""
     },
     "tours": {
         "badge": "🎟️ Tours & Experiences",
         "btn_text": "Book Activities & Tickets",
         "link": "https://klook.tpk.ro/TmmM5wxy",
+        "keyword": "tour attraction museum entry pass ticket activities things to do",
         "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🌟 Discover Top Attractions & Day Trips with Klook</p><p class="text-xs text-slate-400">Skip-the-line tickets • Instant confirmation • Verified reviews</p></div>"""
     },
     "transfers": {
         "badge": "🚕 Airport Rides & Taxis",
         "btn_text": "Book Private Airport Taxi",
         "link": "https://gettransfer.tpk.ro/sdoNOlXV",
+        "keyword": "transfer taxi airport shuttle ride car rental drive",
         "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🚘 Premium Airport Transfers with GetTransfer</p><p class="text-xs text-slate-400">Driver meets you at arrival • Fixed pricing • Clean & comfortable vehicles</p></div>"""
     },
     "airhelp": {
         "badge": "⚖️ Flight Compensation",
         "btn_text": "Claim Compensation (Up to $650)",
         "link": "https://airhelp.tpk.ro/GJreOSXw",
+        "keyword": "compensation delayed flight canceled claim refund airhelp",
         "widget_html": """<div class="text-center py-6"><p class="text-slate-300 font-semibold mb-2">🛡️ Delayed or Canceled Flight?</p><p class="text-xs text-slate-400">Check if you are eligible for up to $650 compensation with AirHelp.</p></div>"""
     }
 }
 
-DESTINATIONS = [
-    "Tokyo, Japan", "Paris, France", "Rome, Italy", "Bali, Indonesia",
-    "New York, USA", "London, UK", "Barcelona, Spain", "Dubai, UAE",
-    "Istanbul, Turkey", "Bangkok, Thailand", "Amsterdam, Netherlands",
-    "Santorini, Greece", "Kyoto, Japan", "Prague, Czech Republic"
+# 80% Priority Locations (US, UK, Europe Target)
+WESTERN_DESTINATIONS = [
+    "New York, USA", "London, UK", "Paris, France", "Rome, Italy", 
+    "Barcelona, Spain", "Amsterdam, Netherlands", "Santorini, Greece", 
+    "Prague, Czech Republic", "Zurich, Switzerland", "Vienna, Austria",
+    "Los Angeles, USA", "Edinburgh, Scotland"
+]
+
+# 20% Global Locations
+GLOBAL_DESTINATIONS = [
+    "Tokyo, Japan", "Bali, Indonesia", "Dubai, UAE", 
+    "Istanbul, Turkey", "Bangkok, Thailand", "Kyoto, Japan"
 ]
 
 def clean_text(text):
@@ -67,22 +79,44 @@ def get_pexels_image(query):
         print(f"Pexels error: {e}")
     return "https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg"
 
+def get_target_destination():
+    # 80% chance Western, 20% Global
+    if random.random() < 0.8:
+        return random.choice(WESTERN_DESTINATIONS)
+    return random.choice(GLOBAL_DESTINATIONS)
+
 def generate_content(destination, topic):
-    model = genai.GenerativeModel("models/gemini-1.5-flash")
-    prompt = f"Create a short, high-converting travel description focusing on {topic} for {destination}. Return ONLY JSON with keys: 'title', 'description', 'slug'."
+    # Higher temperature (0.75 equivalent) via generation_config
+    generation_config = genai.types.GenerationConfig(
+        temperature=0.75,
+        top_p=0.9
+    )
+    model = genai.GenerativeModel("models/gemini-1.5-flash", generation_config=generation_config)
     
+    keyword_hint = AFFILIATE_DATA[topic]["keyword"]
+    prompt = f"""Create a highly engaging Pinterest-optimized travel pin content focusing on '{topic}' for {destination}.
+Make sure to naturally include relevant travel search keywords like: {keyword_hint}.
+Target US/UK/EU tourists searching for trending travel tips and deals.
+Return ONLY valid JSON with exact keys: 'title', 'description', 'slug'."""
+
     try:
         res = model.generate_content(prompt)
         text = res.text
         json_match = re.search(r'\{.*\}', text, re.DOTALL)
         if json_match:
             data = json.loads(json_match.group())
-            return data["title"], data["description"], data["slug"]
+            title = clean_text(data["title"])
+            description = clean_text(data["description"])
+            # Inject keyword in description to guarantee Make.com filter matching
+            description += f" Best {topic} options and travel deals for {destination}."
+            return title, description, data["slug"]
     except Exception as e:
         print(f"Gemini API Error: {e}")
     
-    slug = f"{destination.lower().replace(',', '').replace(' ', '-')}-{topic}"
-    return f"Explore {destination} - Best {topic.capitalize()} Deals", f"Discover exclusive deals and book your {topic} for {destination} today.", slug
+    slug = f"{destination.lower().replace(',', '').replace(' ', '-')}-{topic}-{random.randint(100,999)}"
+    title = f"Ultimate {destination} {topic.capitalize()} Guide"
+    description = f"Discover exclusive deals and book your {topic} ({keyword_hint}) for {destination} today."
+    return title, description, slug
 
 def build_html_page(title, description, image_url, destination, slug, topic):
     os.makedirs("destinations", exist_ok=True)
@@ -192,8 +226,7 @@ def send_to_make(title, description, image_url, page_url):
     requests.post(MAKE_WEBHOOK_URL, json=payload)
 
 def main():
-    destination = random.choice(DESTINATIONS)
-    # Pick a random topic for this specific pin/landing page
+    destination = get_target_destination()
     topic = random.choice(list(AFFILIATE_DATA.keys()))
     
     title, description, slug = generate_content(destination, topic)
