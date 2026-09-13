@@ -68,25 +68,28 @@ GLOBAL_DESTINATIONS = [
 def clean_text(text):
     return re.sub(r'[*#_`]', '', text).strip()
 
-def get_pexels_image(query):
+def get_pexels_image(destination, topic):
     headers = {"Authorization": PEXELS_API_KEY}
-    url = f"https://api.pexels.com/v1/search?query={query}&per_page=1"
+    # Topic aur destination dono ko mila kar query banائی تا کہ Relevant aur Unique Image aye
+    query = f"{destination} {topic}"
+    url = f"https://api.pexels.com/v1/search?query={query}&per_page=15"
     try:
         res = requests.get(url, headers=headers).json()
-        if res.get("photos"):
-            return res["photos"][0]["src"]["large"]
+        photos = res.get("photos", [])
+        if photos:
+            # 15 pictures me se Random choose krna ta k same pic repeat na ho
+            selected_photo = random.choice(photos)
+            return selected_photo["src"]["large"]
     except Exception as e:
         print(f"Pexels error: {e}")
     return "https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg"
 
 def get_target_destination():
-    # 80% chance Western, 20% Global
     if random.random() < 0.8:
         return random.choice(WESTERN_DESTINATIONS)
     return random.choice(GLOBAL_DESTINATIONS)
 
 def generate_content(destination, topic):
-    # Higher temperature (0.75 equivalent) via generation_config
     generation_config = genai.types.GenerationConfig(
         temperature=0.75,
         top_p=0.9
@@ -107,7 +110,6 @@ Return ONLY valid JSON with exact keys: 'title', 'description', 'slug'."""
             data = json.loads(json_match.group())
             title = clean_text(data["title"])
             description = clean_text(data["description"])
-            # Inject keyword in description to guarantee Make.com filter matching
             description += f" Best {topic} options and travel deals for {destination}."
             return title, description, data["slug"]
     except Exception as e:
@@ -213,7 +215,7 @@ def build_html_page(title, description, image_url, destination, slug, topic):
         
     return f"https://pulsetrips.com/destinations/{slug}.html"
 
-def send_to_make(title, description, image_url, page_url):
+def send_to_make(title, description, image_url, page_url, topic, destination):
     if not MAKE_WEBHOOK_URL:
         print("Webhook URL missing, skipping Make.com call")
         return
@@ -221,7 +223,10 @@ def send_to_make(title, description, image_url, page_url):
         "title": title,
         "description": description,
         "image_url": image_url,
-        "link": page_url
+        "link": page_url,
+        "topic": topic,
+        "board_category": topic,  # Filter key for Make.com Router
+        "destination": destination
     }
     requests.post(MAKE_WEBHOOK_URL, json=payload)
 
@@ -230,10 +235,10 @@ def main():
     topic = random.choice(list(AFFILIATE_DATA.keys()))
     
     title, description, slug = generate_content(destination, topic)
-    image_url = get_pexels_image(destination)
+    image_url = get_pexels_image(destination, topic)
     
     page_url = build_html_page(title, description, image_url, destination, slug, topic)
-    send_to_make(title, description, image_url, page_url)
+    send_to_make(title, description, image_url, page_url, topic, destination)
     print(f"Successfully created {topic} page for {destination}: {page_url}")
 
 if __name__ == "__main__":
